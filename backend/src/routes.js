@@ -6,7 +6,7 @@ const routes = new Router();
 routes.post('/books', BookController.create);
 routes.get('/books', BookController.index);
 routes.delete('/books/:id', BookController.index);
-routes.get('/api', BookController.infoByGoogleBooksApi);
+routes.get('/api', BookController.getInfo);
 
 routes
 

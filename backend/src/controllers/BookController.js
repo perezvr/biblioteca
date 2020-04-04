@@ -54,7 +54,6 @@ export default {
 
     const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}&key=${apiKey}`);
 
-    console.log(response.data);
     return res.json(response.data.items);
   }
 }
