@@ -1,5 +1,7 @@
 import connection from '../database/connection';
 import crypto from 'crypto';
+import apiKey from '../../gbapi';
+import axios from 'axios';
 
 export default {
   async create(req, res) {
@@ -45,5 +47,14 @@ export default {
 
     await connection('books').where('id', id).delete('*');
     return res.status(204).send();
+  },
+  // retorna as informações do livros a partir da API do google books. Necessário ter uma apiKey
+  async getInfo(req, res) {
+    const { name } = req.query;
+
+    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}&key=${apiKey}`);
+
+    console.log(response.data);
+    return res.json(response.data.items);
   }
 }
