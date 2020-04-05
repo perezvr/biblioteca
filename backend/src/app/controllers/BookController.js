@@ -1,54 +1,65 @@
-import apiKey from '../../../gbapi';
-import axios from 'axios';
 import Book from '../models/Book';
 
 export default {
   async create(req, res) {
     const { name, author, publishing, genre } = req.body;
 
-    await Book.create({
-      name: name,
-      author: author,
-      publishing: publishing,
+    const book = await Book.create({
+      name,
+      author,
+      publishing,
       genre: genre.toString()
     });
 
+    return res.json(book);
+  },
+
+  async update(req, res) {
+    const { id } = req.params;
+    const { name, author, publishing, genre } = req.body;
+
+    if (id === undefined)
+      return res.status(400).json({ error: 'Book Id not found'});
+
+    const book = await Book.findOne({ where: { id }});
+
+    if (book === null)
+      return res.status(400).json({ error: `Cant update. Register Id ${id} not found`});
+
+    await book.update({
+      name,
+      author,
+      publishing,
+      genre: genre.toString()
+    });
+
+    return res.send();
   },
 
   async index(req, res) {
-    // const { page = 1 } = req.query;
-    // const [count] = await connection ('books').count();
+    const { page = 1 } = req.query;
+    const { count } = await Book.findAndCountAll();
 
-    // const books = await connection('books')
-    //   .limit(10)
-    //   .offset((page-1) * 10)
-    //   .select('*');
+    const books = await Book.findAll({
+      offset: (page-1) * 10,
+      limit: 10,
+    });
 
-    // res.header('X-Total-Count', count['count(*)']);
+    res.header('X-Total-Count', count);
 
-    // return res.json(books);
+    return res.json(books);
   },
 
-  async delete(req, res) {
-    // const { id } = req.params;
+  async delete(req, res) {    
+    const { id } = req.params;
 
-    // const book = await connection('books')
-    //   .where('id', id)
-    //   .select('name')
-    //   .first();
+    const book = await Book.findOne({ where: { id }});
 
-    //  if (book_name === undefined)
-    //   return res.status(400).json({ error: 'Bad request'});
+    if (book === null)
+      return res.status(400).json({ error: 'Bad request'});
+    
+    await book.destroy()
 
-    // await connection('books').where('id', id).delete('*');
-    // return res.status(204).send();
+    return res.status(204).send();
   },
-  // retorna as informações do livros a partir da API do google books. Necessário ter uma apiKey
-  async getInfo(req, res) {
-    const { name } = req.query;
-
-    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}&key=${apiKey}`);
-
-    return res.json(response.data.items);
-  }
 }
