@@ -3,7 +3,6 @@ import Book from '../models/Book';
 export default {
   async create(req, res) {
     const { name, author, publishing, genre } = req.body;
-
     const book = await Book.create({
       name,
       author,
@@ -52,7 +51,6 @@ export default {
 
   async delete(req, res) {    
     const { id } = req.params;
-
     const book = await Book.findOne({ where: { id }});
 
     if (book === null)
