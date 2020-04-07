@@ -1,7 +1,19 @@
 import Book from '../models/Book';
+import * as Yup from 'yup'; 
 
 export default {
   async create(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      author: Yup.string().required(),
+      publishing: Yup.string().required(),
+      genre: Yup.string().required()
+    });
+
+    if (!(await schema.isValid(req.body))){
+      return res.status(400).json({ error: 'Error on schema validation'});
+    }
+
     const { name, author, publishing, genre } = req.body;
     const book = await Book.create({
       name,
