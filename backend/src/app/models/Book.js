@@ -11,6 +11,12 @@ class Book extends Model {
     {
       sequelize,
     });
+
+    return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'user_id', as: 'owner' });
   }
 }
 export default Book;

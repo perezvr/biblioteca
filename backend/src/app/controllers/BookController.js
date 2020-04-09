@@ -1,7 +1,7 @@
 import Book from '../models/Book';
 import * as Yup from 'yup'; 
 
-export default {
+ class BookController {
   async create(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -23,7 +23,7 @@ export default {
     });
 
     return res.json(book);
-  },
+  }
 
   async update(req, res) {
     const { id } = req.params;
@@ -45,7 +45,7 @@ export default {
     });
 
     return res.send();
-  },
+  }
 
   async index(req, res) {
     const { page = 1 } = req.query;
@@ -59,7 +59,7 @@ export default {
     res.header('X-Total-Count', count);
 
     return res.json(books);
-  },
+  }
 
   async delete(req, res) {    
     const { id } = req.params;
@@ -71,5 +71,7 @@ export default {
     await book.destroy()
 
     return res.status(204).send();
-  },
+  }
 }
+
+export default new BookController();
