@@ -1,5 +1,5 @@
-module.exports = { 
-  up: (queryInterface, Sequelize) => { 
+module.exports = {
+  up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('books', {
       id: {
         type: Sequelize.INTEGER,
@@ -18,22 +18,22 @@ module.exports = {
       publishing: {
         type: Sequelize.STRING,
         allowNull: false,
-      },      
+      },
       genre: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      created_at: { 
-        type: Sequelize.DATE, 
-        allowNull: false, 
-      }, 
-      updated_at: { 
-        type: Sequelize.DATE, 
-        allowNull: false, 
-      }, 
-    }); 
-  }, 
-  down: (queryInterface) => { 
-    return queryInterface.dropTable('books'); 
-  }, 
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+    });
+  },
+  down: (queryInterface) => {
+    return queryInterface.dropTable('books');
+  },
 };

@@ -1,7 +1,5 @@
-import User from '../models/User';
-
 class UserController {
-  async store(req, res){
+  async store(req, res) {
     res.json();
   }
 }
