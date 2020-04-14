@@ -12,6 +12,8 @@ routes.get('/books', BookController.index);
 
 routes.use(authMiddleware);
 // abaixo sómente as rotas que precisam de autenticação
+
+
 routes.post('/books', BookController.create);
 routes.put('/books/:id', BookController.update);
 routes.delete('/books/:id', BookController.delete);
