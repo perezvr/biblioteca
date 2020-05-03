@@ -2,12 +2,13 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  max-width: 700px;
+  max-width: 400px;
+  
   background: #fff;
   border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   padding: 30px;
-  margin: 80px auto;
+  margin: 40px;
   font-family: Arial, Helvetica, sans-serif;
 
   h1 {
@@ -25,7 +26,6 @@ export const Container = styled.div`
 export const Form = styled.form`
   margin: 5px auto;  
   border-radius: 4px;
-  margin-top: 10px;
   display: flex;
   flex-direction: column;
 

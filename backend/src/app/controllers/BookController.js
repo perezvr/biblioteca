@@ -4,9 +4,9 @@ import Book from '../models/Book';
 class BookController {
   async create(req, res) {
     const schema = Yup.object().shape({
-      name: Yup.string().required(),
+      title: Yup.string().required(),
       author: Yup.string().required(),
-      publishing: Yup.string().required(),
+      publisher: Yup.string().required(),
       genre: Yup.string().required(),
     });
 
@@ -14,11 +14,11 @@ class BookController {
       return res.status(400).json({ error: 'Error on schema validation' });
     }
 
-    const { name, author, publishing, genre } = req.body;
+    const { title, author, publisher, genre } = req.body;
     const book = await Book.create({
-      name,
+      title,
       author,
-      publishing,
+      publisher,
       genre: genre.toString(),
     });
 
@@ -27,7 +27,7 @@ class BookController {
 
   async update(req, res) {
     const { id } = req.params;
-    const { name, author, publishing, genre } = req.body;
+    const { title, author, publisher, genre } = req.body;
 
     if (id === undefined)
       return res.status(400).json({ error: 'Book Id not found' });
@@ -40,9 +40,9 @@ class BookController {
         .json({ error: `Cant update. Register Id ${id} not found` });
 
     await book.update({
-      name,
+      title,
       author,
-      publishing,
+      publisher,
       genre: genre.toString(),
     });
 

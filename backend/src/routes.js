@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import cors from 'cors';
 import authMiddleware from './app/middlewares/auth';
 import BookController from './app/controllers/BookController';
 import GoogleBooksApiController from './app/controllers/GoogleBooksApiController';
@@ -6,11 +7,14 @@ import SessionController from './app/controllers/SessionController';
 
 const routes = new Router();
 
+
+routes.use(cors());
+
 routes.post('/sessions', SessionController.store);
 routes.get('/api', GoogleBooksApiController.get);
 routes.get('/books', BookController.index);
 
-routes.use(authMiddleware);
+//routes.use(authMiddleware);
 // abaixo sómente as rotas que precisam de autenticação
 
 

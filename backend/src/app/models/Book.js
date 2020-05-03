@@ -4,9 +4,9 @@ class Book extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
+        title: Sequelize.STRING,
         author: Sequelize.STRING,
-        publishing: Sequelize.STRING,
+        publisher: Sequelize.STRING,
         genre: Sequelize.STRING,
       },
       {
