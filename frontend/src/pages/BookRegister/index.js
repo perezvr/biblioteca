@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import MessageBox from '../../containers/MessageBox/index';
 import { Container, SubmitButton, Form } from './style';
 import booksApi from '../../services/booksApi';
 
@@ -17,8 +17,6 @@ export default class BookRegister extends Component {
     const { value, name } = e.target;
     this.setState({ [name]: value});
   }
-
-  handleClose = () => this.setState({show: false});
 
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,21 +45,12 @@ export default class BookRegister extends Component {
   }
 
   render(){
-    const { title, author, publisher, genre, show} = this.state;
+    const { title, author, publisher, genre, show } = this.state;
+    console.log(`${1} ${show}`);
 
     return (
       <Container>
-        <Modal show={show} onHide={this.handleClose} animation={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>Bookswap</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Livro cadastrado com sucesso na sua biblioteca!
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>Fechar</Button>
-          </Modal.Footer>
-        </Modal>  
+        <MessageBox show={show} title="Titulo" content="Conteudo"/>
         <Form onSubmit={this.handleSubmit}>
           <input type="text" name="title" value={title} onChange={ this.handleInput }placeholder="Título"/>
           <input type="text" name="author" value={author} onChange={ this.handleInput } placeholder="Autor"/>
