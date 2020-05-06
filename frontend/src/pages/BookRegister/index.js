@@ -65,14 +65,14 @@ export default class BookRegister extends Component {
     });   
   }
 
-  handleCloseModel = () => { this.setState({ show: false }) };
+  handleCloseModal = () => { this.setState({ show: false }) };
 
   render(){
     const { title, author, publisher, genre, modal, show } = this.state;
 
     return (
       <Container>
-        <MessageBox show={show} title={modal.title} onHide={() => this.handleCloseModel()} content={modal.content}/>
+        <MessageBox show={show} title={modal.title} onHide={() => this.handleCloseModal()} content={modal.content}/>
         <Form onSubmit={this.handleSubmit}>
           <input type="text" name="title" value={title} onChange={ this.handleInput }placeholder="Título"/>
           <input type="text" name="author" value={author} onChange={ this.handleInput } placeholder="Autor"/>
