@@ -3,16 +3,24 @@ import { Modal, Button } from 'react-bootstrap';
 
 export default class MessageBox extends Component {
   state = {
-    show: false,
+    show: true,
   }
 
-  handleClose = () => this.setState({ show: false });
+  componentWillUnmount() {
+    this.setState = { 
+      show: true,
+    }
+  }
 
+  handleClose = () => { this.setState({ show: false }) };
+  
   render() {  
-    const {show, title, content} = this.props;    
+    const { show, title, content } = this.props;
+      
+    const showMesmo = (show && this.state.show);
 
     return (
-      <Modal show={show} onHide={this.handleClose} animation={false}>
+      <Modal show={showMesmo} onHide={this.handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
@@ -22,7 +30,7 @@ export default class MessageBox extends Component {
         <Modal.Footer>
           <Button variant="secondary" onClick={this.handleClose}>Fechar</Button>
         </Modal.Footer>
-      </Modal>  
+      </Modal>
     );
   }
 }
